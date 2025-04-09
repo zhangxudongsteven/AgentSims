@@ -80,8 +80,11 @@ class App:
             "tick_state": self.tick_state,
             "mayor_state": self.mayor_state,
         }
-        # print(info)
         info = json.dumps(info, ensure_ascii=False, separators=(",", ":"))
+        # 添加目录检查逻辑
+        snapshot_dir = os.path.dirname(self.snapshot_path)
+        if not os.path.exists(snapshot_dir):
+            os.makedirs(snapshot_dir, exist_ok=True)
         with open(self.snapshot_path, "w", encoding="utf-8") as snapshot:
             snapshot.write(info)
 

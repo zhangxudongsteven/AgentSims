@@ -15,17 +15,31 @@ MySQL: 8.0.31
 We recommend deploying on MacOS or Linux for better stability.
 
 ## API Key
-For the security of your API Key, we have not included the parameter file in git. Please create the following file
-```
-config/api_key.json
-``` 
-yourself and remember not to push it to git.
+For the security of your API Key, we have not included the parameter file in git. 
 
-The file parameter example is:
+Copy the .env.example file to .env and fill in your API keys and configuration:
 ```
-{"gpt-4": "xxxx", "gpt-3.5": "xxxx"}
-``` 
+cp .env.example .env
+```
+Then edit the .env file with your settings:
+```
+OPENAI_API_KEY=your_api_key_here
+OPENAI_MODEL=gpt-3.5-turbo  # or gpt-4o, etc.
+OPENAI_BASE_URL=https://api.openai.com/v1  # Optional, for OpenAI-compatible APIs
+```
+
 If you want to deploy your own model, see <a href="https://github.com/py499372727/AgentSims/wiki" title="DOCS">DOCS</a>.
+
+## Development Notes
+
+### LLM Integration
+The project's LLM integration has been simplified. All LLM-related functionality is now located in `agent/utils/llm.py`. This module provides:
+
+- `LLMCaller`: Main interface with JSON response parsing
+- `OpenAICaller`: Base implementation for OpenAI compatible APIs
+- `BaseCaller`: Simple base class for extending with other LLM implementations
+
+When implementing new features, please use the classes from `agent/utils/llm` directly instead of the legacy implementations.
 
 ## Folder Creation
 Before running, please
@@ -59,7 +73,7 @@ create database `llm_game0002` default character set utf8mb4 collate utf8mb4_uni
 pip install tornado
 pip install mysql-connector-python
 pip install websockets
-pip install openai_async
+pip install openai
 ```
 
 or
@@ -154,4 +168,3 @@ Please cite our paper if you use the code or data in this repository.
       archivePrefix={arXiv},
       primaryClass={cs.AI}
 }
-```

@@ -1,5 +1,5 @@
 logs/*
-.idea/*
+.idea
 config/api_key.json
 ws_server.py
 ws_client.py
@@ -9,3 +9,7 @@ __pycache__/
 snapshot/app.json
 snapshot/mayors.json
 *.pyc
+.memory
+.clinerules
+.env
+config/app.json

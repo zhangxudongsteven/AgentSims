@@ -1,0 +1,60 @@
+# AgentSims 项目智能规则
+
+## 目录结构规范
+1. **核心目录**:
+   - agent/: 智能体系统
+   - command/: 命令系统
+   - model/: 数据模型
+   - client/: Web客户端
+
+2. **配置目录**:
+   - config/: 存放所有JSON配置文件
+   - .memory/: 记忆库文档
+
+3. **运行时目录**:
+   - snapshot/: 运行时快照
+   - logs/: 日志文件
+
+## 数据库初始化模式
+1. **必需数据库**:
+   - llm_account: 账户管理
+   - llm_game: 游戏主数据库
+   - llm_game0001/0002: 游戏实例
+
+2. **字符集规范**:
+   ```sql
+   DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+   ```
+
+## API密钥管理
+1. **文件位置**: config/api_key.json
+2. **格式规范**:
+   ```json
+   {
+     "gpt-4": "your_key",
+     "gpt-3.5": "your_key"
+   }
+   ```
+3. **安全规则**:
+   - 必须手动创建
+   - 禁止提交到版本控制
+
+## 评估框架配置
+1. **配置文件**: config/eval.json
+2. **关键字段**:
+   - target_nickname: 目标agent名称
+   - query: 评估问题
+   - measurement: 结果判断条件
+   - interval: 评估间隔(tick数)
+
+## 项目启动流程
+1. **必需步骤**:
+   - 初始化MySQL数据库
+   - 创建api_key.json
+   - 创建snapshot和logs目录
+   - 配置app.json参数
+
+2. **启动命令**:
+   ```bash
+   ./restart.sh  # 启动服务器
+   open client/index.html  # 启动客户端
